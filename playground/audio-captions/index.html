@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Caption highlighting example</title>
+
+<style>
+  body {
+    color: #000;
+    background-color: #fff;
+  }
+  .intro {
+    font-style: italic;
+  }
+  audio {
+    max-width: 100%;
+  }
+  .captions p {
+    padding: 0.5em;
+    margin: 0;
+  }
+  .captions span {
+    display: block;
+    font-size: 0.7em;
+    line-height: 1.5;
+  }
+  .captions p.current {
+    background-color: yellow;
+  }
+</style>
+
+<p class="intro">Caption highlighting example using "modern" standards, requiring a "modern" browser to work. Audio recording borrowed from <a href="http://librivox.org/">LibriVox</a>.</p>
+
+<div id="media">
+  <h1>The Hare and the Tortoise</h1>
+
+  <audio src="https://torgeilo.github.io/playground/audio-captions/data/02_haretortoise_aesop_bt.mp3" controls crossorigin="*">
+   <track src="https://torgeilo.github.io/playground/audio-captions/data/the_hare_and_the_tortoise.vtt" kind="captions" srclang="en" label="English" default>
+  </audio>
+
+  <div class="captions"></div>
+</div>
+
+
+<script>
+(function() {
+  var media = document.getElementById("media");
+  var track = media.querySelector("track");
+  var captions = media.querySelector(".captions");
+
+  function formatTime(seconds) {
+    var m = Math.floor(seconds / 60);
+    var s = Math.round(seconds % 60);
+    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  function renderCue(cue) {
+    var paragraph = document.createElement("p");
+    var indicator = document.createElement("span");
+    indicator.appendChild(document.createTextNode(formatTime(cue.startTime)));
+    paragraph.appendChild(indicator);
+    paragraph.appendChild(document.createTextNode(cue.text));
+    captions.appendChild(paragraph);
+    return paragraph;
+  }
+
+  track.addEventListener("load", function() {
+    var textTrack = track.track;
+
+    Array.prototype.forEach.call(textTrack.cues, function(cue) {
+      var cueEl = renderCue(cue);
+      cue.addEventListener("enter", function() {
+          cueEl.classList.add("current");
+      });
+      cue.addEventListener("exit", function() {
+          cueEl.classList.remove("current");
+      });
+    });
+  });
+})();
+</script>
