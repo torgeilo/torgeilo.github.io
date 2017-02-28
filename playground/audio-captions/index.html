@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Caption highlighting example</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="styles.css" type="text/css" rel="stylesheet">
+<title>Audio captions example</title>
 
-<style>
-  body {
-    color: #000;
-    background-color: #fff;
-  }
-  .intro {
-    font-style: italic;
-  }
-  audio {
-    max-width: 100%;
-  }
-  .captions p {
-    padding: 0.5em;
-    margin: 0;
-  }
-  .captions span {
-    display: block;
-    font-size: 0.7em;
-    line-height: 1.5;
-  }
-  .captions p.current {
-    background-color: yellow;
-  }
-</style>
+<base href="https://torgeilo.github.io/playground/audio-captions/">
 
-<p class="intro">Caption highlighting example using "modern" standards, requiring a "modern" browser to work. Audio recording borrowed from <a href="http://librivox.org/">LibriVox</a>.</p>
+<header>
+  <h1>Audio captions example</h1>
+  <p>...with highlighting. Using the HTML5 audio and track elements, and a WebVTT file containing timed text. No libraries.</p>
+  <p>Audio recording borrowed from <a href="http://librivox.org/">LibriVox</a>.</p>
+</header>
 
-<div id="media">
+<section id="media">
   <h1>The Hare and the Tortoise</h1>
 
-  <audio src="https://torgeilo.github.io/playground/audio-captions/data/02_haretortoise_aesop_bt.mp3" controls crossorigin="*">
-   <track src="https://torgeilo.github.io/playground/audio-captions/data/the_hare_and_the_tortoise.vtt" kind="captions" srclang="en" label="English" default>
+  <audio src="data/02_haretortoise_aesop_bt.mp3" controls crossorigin="*">
+   <track src="data/the_hare_and_the_tortoise.vtt" kind="captions" srclang="en" label="English" default>
   </audio>
 
   <div class="captions"></div>
-</div>
-
+</section>
 
 <script>
 (function() {
