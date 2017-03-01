@@ -57,7 +57,7 @@
           cueEl.classList.remove("current");
       });
       cueEl.addEventListener("click", function() {
-        audio.currentTime = Math.max(0, cue.startTime);
+        audio.currentTime = cue.startTime;
         if (audio.paused) {
           audio.play();
         }
