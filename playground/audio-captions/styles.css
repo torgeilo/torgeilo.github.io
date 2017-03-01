@@ -14,17 +14,22 @@ section {
     padding: 1em;
 }
 audio {
-    max-width: 100%;
+    width: 100%;
+    max-width: 30em;
 }
 .captions p {
     padding: 0.5em;
     margin: 0;
+    cursor: pointer;
 }
 .captions span {
     display: block;
     font-size: 0.7em;
     line-height: 1.5;
 }
+.captions p:hover {
+    background-color: #f6f6f6;
+}
 .captions p.current {
-    background-color: yellow;
+    background-color: #ff0;
 }
