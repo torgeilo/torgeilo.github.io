@@ -25,6 +25,7 @@
 <script>
 (function() {
   var media = document.getElementById("media");
+  var audio = media.querySelector("audio");
   var track = media.querySelector("track");
   var captions = media.querySelector(".captions");
 
@@ -54,6 +55,12 @@
       });
       cue.addEventListener("exit", function() {
           cueEl.classList.remove("current");
+      });
+      cueEl.addEventListener("click", function() {
+        audio.currentTime = Math.max(0, cue.startTime);
+        if (audio.paused) {
+          audio.play();
+        }
       });
     });
   });
