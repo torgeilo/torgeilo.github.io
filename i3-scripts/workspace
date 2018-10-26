@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+#
+# Open workspace <name> on the current output.
+
+import i3ipc
+import sys
+
+i3 = i3ipc.Connection()
+
+target_name = sys.argv[1]
+target_output = 'primary'
+
+for workspace in i3.get_workspaces():
+    if workspace.focused:
+        target_output = workspace.output
+        break
+
+i3.command(f'[workspace="^{target_name}$"] move workspace to output {target_output}; workspace {target_name}')

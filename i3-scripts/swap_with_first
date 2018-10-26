@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+#
+# Swap the current container with the first container on the same workspace.
+
+import i3ipc
+
+i3 = i3ipc.Connection()
+
+first = i3.get_tree().find_focused().workspace().leaves()[0]
+i3.command(f'swap container with con_id {first.id}')
