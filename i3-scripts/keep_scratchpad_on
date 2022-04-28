@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+#
+# If a scratchpad window is shown (so not technically on the scratchpad
+# workspace), then keep it visible when changing workspaces.
+
+import time
+import i3ipc
+
+time_scratchpad_show = 0
+
+def on_workspace_focus(i3, event):
+  """
+  If there's one scratchpad window, then keep showing it when changing
+  workspaces, or keep it scratched if scratched.
+
+  If there are more scratched windows, then the logic doesn't know if the
+  scratchpad should be shown or not and no action is taken. (Don't know how to
+  detect that a floating window actually belongs to the scratchpad workspace
+  when shown on a regular workspace.)
+  """
+
+  global time_scratchpad_show
+
+  num_windows_in_scratchpad = len(i3.get_tree().scratchpad().floating_nodes)
+
+  if event.old.name != '__i3_scratch' and num_windows_in_scratchpad == 0:
+    show_scratchpad_window_id = None
+    time_scratchpad_show = time.time()
+    i3.command('scratchpad show')
+
+def on_window_move(i3, event):
+  """
+  If a scratchpad window was moved from one workspace to another, then move
+  focus away from the scratchpad window.
+  """
+
+  global time_scratchpad_show
+
+  now = time.time()
+  if time.time() - time_scratchpad_show > 0.1:
+    return
+
+  i3.command("focus tiling")
+
+conn = i3ipc.Connection()
+conn.on(i3ipc.Event.WORKSPACE_FOCUS, on_workspace_focus)
+conn.on(i3ipc.Event.WINDOW_MOVE, on_window_move)
+conn.main()
