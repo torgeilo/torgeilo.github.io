@@ -11,9 +11,9 @@ body {
 h1 {
   font-weight: normal;
   line-height: 1.2;
-  margin-top: 0;
 }
 h2 {
+  margin-top: 2em;
   font-size: 1.1em;
 }
 button {
