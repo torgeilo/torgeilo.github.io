@@ -2,17 +2,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chromium seek to cue end time bug</title>
-<style>
-body {background: white; color: black; max-width: 40em; margin: 1em auto; font-size: 120%;}
-button {font-size: 80%;}
-li {margin: 0.5em 0;}
-</style>
+<link rel="stylesheet" type="text/css" href="../basics.css">
 
 <h1>Chromium seek to cue end time bug</h1>
 
 <p>Seek to end time in a Chromium based browser and observe that the subtitle cue doesn't go away. The subtitle cue should be active from 00:05 to 00:15.</p>
 
-<video src="video-270p.mp4" controls playsinline width="960" style="max-width: 100%"></video>
+<video src="video-270p.mp4" controls playsinline width="960"></video>
 
 <p>
   Seek to:
@@ -51,7 +47,7 @@ li {margin: 0.5em 0;}
 
 <hr>
 
-<h4>Affected versions (not exhaustive)</h4>
+<h2>Affected versions (not exhaustive)</h2>
 <ul>
   <li>Chrome and Chromium 101.0.4951.41</li>
   <li>Vivaldi 5.2.2623.39 (Chrome/100.0.4896.133)</li>
