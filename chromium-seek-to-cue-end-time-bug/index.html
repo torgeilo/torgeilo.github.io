@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chromium seek to cue end time bug</title>
+<style>
+body {background: white; color: black; max-width: 40em; margin: 1em auto; font-size: 120%;}
+button {font-size: 80%;}
+li {margin: 0.5em 0;}
+</style>
+
+<h1>Chromium seek to cue end time bug</h1>
+
+<p>Seek to end time in a Chromium based browser and observe that the subtitle cue doesn't go away. The subtitle cue should be active from 00:05 to 00:15.</p>
+
+<video src="video-270p.mp4" controls playsinline width="960" style="max-width: 100%"></video>
+
+<p>
+  Seek to:
+  <button id="before">video start</button>
+  <button id="startTime">cue start</button>
+  <button id="inside">inside cue</button>
+  <button id="endTime" style="border-color: red">cue end</button>
+  <button id="after">after cue</button>
+</p>
+
+<p>
+  Seek to:
+  <button id="justBeforeEndTime">1 ms before cue end</button>
+  <button id="justAtEndTime" style="border-color: red">cue end</button>
+  <button id="justAfterEndTime">1 ms after cue end</button>
+</p>
+
+<script>
+  const video = document.querySelector('video');
+
+  const track = video.addTextTrack('subtitles', 'Label', 'en');
+  const cue = new VTTCue(5, 15, 'Cue active');
+  track.addCue(cue);
+  track.mode = 'showing';
+
+  document.querySelector('#before').addEventListener('click', () => video.currentTime = 0);
+  document.querySelector('#startTime').addEventListener('click', () => video.currentTime = 5);
+  document.querySelector('#inside').addEventListener('click', () => video.currentTime = 10);
+  document.querySelector('#endTime').addEventListener('click', () => video.currentTime = 15);
+  document.querySelector('#after').addEventListener('click', () => video.currentTime = 20);
+
+  document.querySelector('#justBeforeEndTime').addEventListener('click', () => video.currentTime = 15 - 0.001);
+  document.querySelector('#justAtEndTime').addEventListener('click', () => video.currentTime = 15);
+  document.querySelector('#justAfterEndTime').addEventListener('click', () => video.currentTime = 15 + 0.001);
+</script>
+
+<hr>
+
+<h4>Affected versions (not exhaustive)</h4>
+<ul>
+  <li>Chrome and Chromium 101.0.4951.41</li>
+  <li>Vivaldi 5.2.2623.39 (Chrome/100.0.4896.133)</li>
+</ul>
