@@ -26,6 +26,13 @@
   <button id="justAfterEndTime">1 ms after cue end</button>
 </p>
 
+<h2>Affected versions (not exhaustive)</h2>
+
+<ul>
+  <li>Chrome and Chromium 101.0.4951.41</li>
+  <li>Vivaldi 5.2.2623.39 (Chrome/100.0.4896.133)</li>
+</ul>
+
 <script>
   const video = document.querySelector('video');
 
@@ -44,11 +51,3 @@
   document.querySelector('#justAtEndTime').addEventListener('click', () => video.currentTime = 15);
   document.querySelector('#justAfterEndTime').addEventListener('click', () => video.currentTime = 15 + 0.001);
 </script>
-
-<hr>
-
-<h2>Affected versions (not exhaustive)</h2>
-<ul>
-  <li>Chrome and Chromium 101.0.4951.41</li>
-  <li>Vivaldi 5.2.2623.39 (Chrome/100.0.4896.133)</li>
-</ul>
