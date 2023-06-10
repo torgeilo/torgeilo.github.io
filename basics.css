@@ -1,14 +1,17 @@
+:root {
+  font-size: 100%;
+  --page-margin: 3%;
+  --section-space: calc(1rem + 6%);
+}
 body {
   background: #fff;
   color: #000;
   font-family: sans-serif;
-  font-size: 100%;
   line-height: 1.5;
-  margin: 0 auto;
-  max-width: 40em;
   overflow-wrap: break-word;
-  padding: 3%;
-  padding-top: 0;
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 0 var(--page-margin) var(--section-space) var(--page-margin);
 }
 a {
   color: blue;
@@ -21,18 +24,21 @@ h1 {
   line-height: 1.25;
   font-size: 2.5em;
   text-align: center;
-  background: #f7f7f7;
+  background: #eee;
   margin-top: 0;
-  padding: 1.25em 3%;
-  margin: 0 -3% 0.8em -3%;
+  padding: 1.25em var(--page-margin);
+  margin: 0 calc(-1 * var(--page-margin)) var(--section-space) calc(-1 * var(--page-margin));
+  border-bottom: 1px solid #ccc;
 }
 h2 {
-  margin-top: 2em;
+  margin-top: 2rem;
   font-size: 1.5em;
+  line-height: 1.25;
 }
 h3 {
   font-size: 1em;
   margin: 1em 0;
+  line-height: 1.25;
 }
 button {
   font-size: inherit;
@@ -46,8 +52,20 @@ video, img {
   max-width: 100%;
 }
 pre {
-  border-left: 1px solid #aaa;
-  padding-left: 2em;
+  border-left: 1px solid #ccc;
+  padding-left: var(--page-margin);
   padding-right: 1em;
   overflow-x: auto;
+}
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  height: 0.333em;
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  margin: var(--section-space) calc(-1 * var(--page-margin));
+}
+.section {
+  margin-top: var(--section-space);
+  margin-bottom: var(--section-space);
 }

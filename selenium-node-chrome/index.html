@@ -6,41 +6,31 @@
     <title>Old selenium/node-chrome, Google Chrome versions</title>
     <link href="../basics.css" rel="stylesheet" type="text/css">
     <style>
-      .explanation {
-        margin: calc(1em + 6%) 0;
-      }
       ul {
         margin: 0;
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        margin: 2em 0;
       }
       th {
         text-align: left;
         vertical-align: bottom;
-        padding: 0.333em;
-        padding-right: 1em;
-        white-space: pre-line;
-        border-bottom: 1px solid #aaa;
       }
-      td {
-        border-bottom: 1px solid #aaa;
-        padding: 0.333em;
+      th, td {
         white-space: pre-line;
+        padding: 0.333em 1em 0.333em 0;
+        border-bottom: 1px solid #ccc;
       }
-      hr {
-        border: none;
-        border-top: 6px double #aaa;
-        margin: calc(1em + 6%) -3%;
+      th:last-child, td:last-child {
+        padding-right: 0;
       }
     </style>
   </head>
   <body>
     <h1>Google Chrome versions in selenium/node-chrome docker images</h1>
 
-    <div class="explanation">
+    <div class="section">
       <p>To find a <a href="https://hub.docker.com/r/selenium/node-chrome"><code>selenium/node-chrome</code></a> docker image containing:</p>
       <ul>
         <li><strong>Google Chrome 84 or newer</strong>: Go to the <a href="https://hub.docker.com/r/selenium/node-chrome/tags">list of tags</a> and type the Chrome version number into the "Filter Tags" input field.</li>
@@ -48,7 +38,7 @@
       </ul>
     </div>
 
-    <table class="mapdatatable"></table>
+    <table class="mapdatatable section"></table>
 
     <p><a href="chrome-version-vs-selenium-node-chrome-tag-43-83.csv">Download the CSV file</a></p>
 
@@ -92,10 +82,10 @@ services:
       - HUB_PORT_4444_TCP_ADDR=selenium-hub
       - HUB_PORT_4444_TCP_PORT=4444
     </code></pre>
-    <p>Then Selenium can connect to <code>http://localhost:4444/wd/hub</code> with capabilities browserName: "Chrome" and version: "63".</p>
+    <p>Then Selenium can connect to <code>http://localhost:4444/wd/hub</code> with capabilities browserName:&nbsp;"Chrome" and version:&nbsp;"63".</p>
 
-    <h2>What's the obsession with Chrome 63?</h2>
-    <p>Samsung Tizen 5.0 from 2019 runs Chrome 63.</p>
+    <h2>What's the obsession with Chrome&nbsp;63?</h2>
+    <p>Samsung Tizen&nbsp;5.0 from 2019 runs Chrome&nbsp;63.</p>
 
     <script>
       const mapDataTable = document.querySelector('.mapdatatable');
