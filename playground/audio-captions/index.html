@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="styles.css" type="text/css" rel="stylesheet">
+<link href="../../basics.css" type="text/css" rel="stylesheet">
 <title>Audio captions example</title>
+<style>
+audio {
+  width: 100%;
+  margin-bottom: 1em;
+}
+.captions p {
+  cursor: pointer;
+  padding: 0.5em;
+  margin: 0;
+}
+.captions span {
+  font-weight: bold;
+  padding-right: 0.25em;
+}
+.captions p:hover {
+  background: #f6f6f6;
+}
+.captions p.current {
+  background: #ff0;
+}
+</style>
 
 <base href="https://torgeilo.github.io/playground/audio-captions/">
 
 <header>
   <h1>Audio captions example</h1>
-  <p>...with highlighting. Using the HTML5 audio and track elements, and a <a href="data/the_hare_and_the_tortoise.vtt">WebVTT file with timed text</a>. No libraries. Browser support might vary.</p>
+  <p>&hellip;with highlighting. Using the HTML5 audio and track elements, and a <a href="data/the_hare_and_the_tortoise.vtt">WebVTT file with timed text</a>. No libraries. Browser support might vary.</p>
   <p>Audio recording from <a href="http://librivox.org">LibriVox</a>. Captions from <a href="http://www.gutenberg.org">Project Gutenberg</a>.</p>
 </header>
 
 <section id="media">
-  <h1>The Hare and the Tortoise</h1>
+  <h2>The Hare and the Tortoise</h2>
 
   <audio src="data/02_haretortoise_aesop_bt.mp3" controls crossorigin="*">
    <track src="data/the_hare_and_the_tortoise.vtt" kind="captions" srclang="en" label="English" default>
@@ -40,7 +61,7 @@
     var indicator = document.createElement("span");
     indicator.appendChild(document.createTextNode(formatTime(cue.startTime)));
     paragraph.appendChild(indicator);
-    paragraph.appendChild(document.createTextNode(cue.text));
+    paragraph.appendChild(document.createTextNode(" " + cue.text));
     captions.appendChild(paragraph);
     return paragraph;
   }

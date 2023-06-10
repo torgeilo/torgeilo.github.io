@@ -3,19 +3,24 @@ body {
   color: #000;
   font-family: sans-serif;
   font-size: 100%;
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 0 auto;
   max-width: 40em;
   overflow-wrap: break-word;
   padding: 3%;
 }
 h1 {
-  font-weight: normal;
-  line-height: 1.2;
+  font-weight: 300;
+  line-height: 1.25;
+  font-size: 2.5em;
 }
 h2 {
   margin-top: 2em;
-  font-size: 1.1em;
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1em;
+  margin: 1em 0;
 }
 button {
   font-size: inherit;
@@ -27,4 +32,9 @@ li {
 }
 video, img {
   max-width: 100%;
+}
+pre {
+  border-left: 1px solid #aaa;
+  padding-left: 2em;
+  overflow: scroll;
 }
