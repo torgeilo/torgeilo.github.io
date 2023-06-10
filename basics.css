@@ -9,6 +9,12 @@ body {
   overflow-wrap: break-word;
   padding: 3%;
 }
+a {
+  color: blue;
+}
+a:visited {
+  color: purple;
+}
 h1 {
   font-weight: 300;
   line-height: 1.25;
@@ -36,5 +42,6 @@ video, img {
 pre {
   border-left: 1px solid #aaa;
   padding-left: 2em;
-  overflow: scroll;
+  padding-right: 1em;
+  overflow-x: auto;
 }
