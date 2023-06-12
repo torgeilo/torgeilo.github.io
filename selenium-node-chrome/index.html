@@ -29,11 +29,12 @@
   </head>
   <body>
     <h1>Google Chrome versions in selenium/node-chrome docker images</h1>
+    <span class="meta">Updated 2023-06-10 @ <a href="https://torgeilo.github.io/">torgeilo.github.io</a></span>
 
     <div class="section">
       <p>To find a <a href="https://hub.docker.com/r/selenium/node-chrome"><code>selenium/node-chrome</code></a> docker image containing:</p>
       <ul>
-        <li><strong>Google Chrome 84 or newer</strong>: Go to the <a href="https://hub.docker.com/r/selenium/node-chrome/tags">list of tags</a> and type the Chrome version number into the "Filter Tags" input field.</li>
+        <li><strong>Google Chrome 84 or newer</strong>: <a href="https://hub.docker.com/r/selenium/node-chrome/tags">Go to the list of tags</a> and use the "Filter Tags" input field with the Chrome version number.</li>
         <li><strong>Google Chrome 83 or older</strong>: See the table below.</li>
       </ul>
     </div>
@@ -44,20 +45,9 @@
 
     <hr>
 
-    <h2>How to find the Google Chrome version of a selenium/node-chrome image</h2>
-    <p>Run:</p>
-    <pre><code>
-docker run selenium/node-chrome:&lt;tag&gt; google-chrome --version
-    </code></pre>
-    <p>&hellip;replacing <code>&lt;tag&gt;</code> with the actual tag. For example:</p>
-    <pre><code>
-$ docker run --quiet --rm selenium/node-chrome:3.8.1-bohrium google-chrome --version
-Google Chrome 63.0.3239.84
-    </code></pre>
-
     <h2>Example docker-compose.yml configuration</h2>
-    <p><em>Note 1: Other docker images might need different configuration.</em></p>
-    <p><em>Note 2: It has matching major versions of Selenium hub and server (version 3). The Selenium capabilities must match too.</em></p>
+    <p><em>Note: The example might not be 100% correct or optimal, but it seems to work fine for several of the v3 Selenium images.</em></p>
+    <p>Note the matching major version of the Selenium hub image. v3 Selenium servers fail to register with v4 Selenium hubs. The Selenium capabilities must match, too, when connecting to the hub with a driver (in this case "browserName": "Chrome" and "version":&nbsp;"63").</p>
 
     <pre><code>
 version: "3.5"
@@ -82,10 +72,20 @@ services:
       - HUB_PORT_4444_TCP_ADDR=selenium-hub
       - HUB_PORT_4444_TCP_PORT=4444
     </code></pre>
-    <p>Then Selenium can connect to <code>http://localhost:4444/wd/hub</code> with capabilities browserName:&nbsp;"Chrome" and version:&nbsp;"63".</p>
 
-    <h2>What's the obsession with Chrome&nbsp;63?</h2>
-    <p>Samsung Tizen&nbsp;5.0 from 2019 runs Chrome&nbsp;63.</p>
+    <h2>How to find the Google Chrome version of a selenium/node-chrome image</h2>
+    <p>Run:</p>
+    <pre><code>
+docker run selenium/node-chrome:&lt;tag&gt; google-chrome --version
+    </code></pre>
+    <p>&hellip;replacing <code>&lt;tag&gt;</code> with the actual tag. For example:</p>
+    <pre><code>
+$ docker run --quiet --rm selenium/node-chrome:3.8.1-bohrium google-chrome --version
+Google Chrome 63.0.3239.84
+    </code></pre>
+
+    <h2>Why Chrome&nbsp;63 all the time?</h2>
+    <p>Samsung Tizen&nbsp;5.0 from 2019 runs Chrome&nbsp;63. Some of us have to deal with that.</p>
 
     <script>
       const mapDataTable = document.querySelector('.mapdatatable');
