@@ -29,7 +29,7 @@ h1 {
   padding: 1.25em var(--page-margin);
   margin: 0 calc(-1 * var(--page-margin)) var(--section-space) calc(-1 * var(--page-margin));
   text-shadow: 0 0 2px rgb(255, 255, 255, 0.75);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3); */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 h2 {
   margin-top: 2rem;
