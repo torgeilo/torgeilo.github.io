@@ -1,50 +1,88 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Chromium seek to cue end time bug</title>
-<link rel="stylesheet" type="text/css" href="../basics.css">
+<link rel="stylesheet" type="text/css" href="../theme/et-book/et-book.css" />
+<link rel="stylesheet" type="text/css" href="../theme/theme.css" />
 
-<h1>Chromium seek to cue end time bug</h1>
-<span class="meta">Updated 2022-04-28 @ <a href="https://torgeilo.github.io/">torgeilo.github.io</a></span>
+<header>
+  <a href="https://torgeilo.github.io/">torgeilo.github.io</a>
+</header>
 
-<div class="section">
-  <p><a href="https://bugs.chromium.org/p/chromium/issues/detail?id=831159">Chromium issue #831159</a></p>
-  <p>Seek to end time in a Chromium based browser and observe that the subtitle cue doesn't go away. The subtitle cue should be active from 00:05 to 00:15.</p>
-</div>
+<article>
+  <h1>Chromium bug: Seek to cue end time</h1>
+  <span>Updated <time datetime="2022-04-28">April 4, 2022</span>
 
-<video src="video-270p.mp4" controls playsinline width="960"></video>
+  <section>
+    <p>
+      Chromium based browsers have a bug<span class="aside-ref">1</span> where,
+      if you seek to the exact end time of a text track cue, then the cue
+      doesn't go away as expected.
+    </p>
 
-<p>
-  <span style="display: block">Seek to:</span>
-  <button id="before">video start</button>
-  <button id="startTime">cue start</button>
-  <button id="inside">inside cue</button>
-  <button id="endTime" style="border-color: red">cue end</button>
-  <button id="after">after cue</button>
-</p>
+    <aside>
+      <span class="aside-ref">1</span>
+      <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=831159">
+        Chromium issue #831159
+      </a>
+    </aside>
+  </section>
 
-<p>
-  <span style="display: block">Seek to:</span>
-  <button id="justBeforeEndTime">1 ms before cue end</button>
-  <button id="justAtEndTime" style="border-color: red">cue end</button>
-  <button id="justAfterEndTime">1 ms after cue end</button>
-</p>
+  <section>
+    <h2>Demo</h2>
+    <video src="video-270p.mp4" controls playsinline muted width="960"></video>
+
+    <div class="caption">
+      Play the video, seek to the <em>cue end</em> time and, in a Chromium based
+      browser, observe that the active subtitle cue doesn't go away. The cue
+      should be active from 00:05 to 00:15.
+    </div>
+
+    <p>
+      <span style="display: block">Seek to:</span>
+      <button id="before">video start</button>
+      <button id="startTime">cue start</button>
+      <button id="inside">inside cue</button>
+      <button id="endTime" style="border-color: red">cue end</button>
+      <button id="after">after cue</button>
+      <br />
+      <button id="justBeforeEndTime">1 ms before cue end</button>
+      <button id="justAtEndTime" style="border-color: red">cue end</button>
+      <button id="justAfterEndTime">1 ms after cue end</button>
+    </p>
+  </section>
+</article>
 
 <script>
-  const video = document.querySelector('video');
+  const video = document.querySelector("video");
 
-  const track = video.addTextTrack('subtitles', 'Label', 'en');
-  const cue = new VTTCue(5, 15, 'Cue active');
+  const track = video.addTextTrack("subtitles", "Label", "en");
+  const cue = new VTTCue(5, 15, "Cue active");
   track.addCue(cue);
-  track.mode = 'showing';
+  track.mode = "showing";
 
-  document.querySelector('#before').addEventListener('click', () => video.currentTime = 0);
-  document.querySelector('#startTime').addEventListener('click', () => video.currentTime = 5);
-  document.querySelector('#inside').addEventListener('click', () => video.currentTime = 10);
-  document.querySelector('#endTime').addEventListener('click', () => video.currentTime = 15);
-  document.querySelector('#after').addEventListener('click', () => video.currentTime = 20);
-
-  document.querySelector('#justBeforeEndTime').addEventListener('click', () => video.currentTime = 15 - 0.001);
-  document.querySelector('#justAtEndTime').addEventListener('click', () => video.currentTime = 15);
-  document.querySelector('#justAfterEndTime').addEventListener('click', () => video.currentTime = 15 + 0.001);
+  document
+    .querySelector("#before")
+    .addEventListener("click", () => (video.currentTime = 0));
+  document
+    .querySelector("#startTime")
+    .addEventListener("click", () => (video.currentTime = 5));
+  document
+    .querySelector("#inside")
+    .addEventListener("click", () => (video.currentTime = 10));
+  document
+    .querySelector("#endTime")
+    .addEventListener("click", () => (video.currentTime = 15));
+  document
+    .querySelector("#after")
+    .addEventListener("click", () => (video.currentTime = 20));
+  document
+    .querySelector("#justBeforeEndTime")
+    .addEventListener("click", () => (video.currentTime = 15 - 0.001));
+  document
+    .querySelector("#justAtEndTime")
+    .addEventListener("click", () => (video.currentTime = 15));
+  document
+    .querySelector("#justAfterEndTime")
+    .addEventListener("click", () => (video.currentTime = 15 + 0.001));
 </script>

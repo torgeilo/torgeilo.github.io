@@ -1,0 +1,285 @@
+@charset "UTF-8";
+
+html {
+  font-size: 93.75%;
+  font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD",
+    "Book Antiqua", Georgia, serif;
+  line-height: 2rem;
+  background: #fffff8;
+  color: #111;
+
+  --line-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  counter-reset: sidenote;
+}
+
+header > *,
+article > *,
+main > *,
+section > * {
+  grid-column: primary-column;
+}
+
+header,
+article,
+main,
+section {
+  grid-column: window-width;
+  margin-left: 0;
+  margin-right: 0;
+  display: grid;
+  row-gap: 1.4rem;
+  overflow: hidden;
+  grid-template-columns:
+    [window-width-start] minmax(12.5%, 1fr)
+    [primary-column-start wide-content-start span-columns-start] min(48%, 770px)
+    [primary-column-end] min(5%, 80px)
+    [secondary-column-start] min(24%, 365px)
+    [secondary-column-end span-columns-end wide-content-end] minmax(10.5%, 1fr)
+    [window-width-end];
+}
+
+@media (max-width: 760px) {
+  header,
+  article,
+  main,
+  section {
+    grid-template-columns:
+      [window-width-start wide-content-start] 8%
+      [span-columns-start primary-column-start] 4%
+      [secondary-column-start] auto [secondary-column-end primary-column-end span-columns-end]
+      8% [wide-content-end window-width-end];
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #151515;
+    color: #ddd;
+  }
+}
+
+header {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+header a {
+  padding: 0.2rem 0;
+  text-decoration: none;
+}
+
+article,
+main {
+  padding: 5vh 0;
+}
+
+section {
+  padding: 1rem 0;
+}
+
+p {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+h1 {
+  font-weight: 400;
+  margin-top: 4rem;
+  margin-bottom: 0;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  grid-column: span-columns;
+}
+
+h2 {
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 2.1rem;
+  margin-bottom: 0;
+  font-size: 2.2rem;
+  line-height: 1.1;
+}
+
+h3 {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.7rem;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+/* Subheading */
+h1 + p {
+  font-style: italic;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  grid-column: span-columns;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  width: 55%;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+a:link,
+a:visited {
+  color: inherit;
+  text-underline-offset: 0.1em;
+  text-decoration-thickness: 0.05em;
+}
+
+.numeral {
+  font-family: et-book-roman-old-style;
+}
+
+dl,
+ol,
+ul {
+  font-size: 1.4rem;
+  padding-left: 5%;
+  margin: 0;
+}
+
+li {
+  padding: 0.4rem 0;
+}
+
+img,
+video,
+audio {
+  max-width: 100%;
+}
+audio {
+  height: 3rem;
+}
+
+aside,
+.caption {
+  grid-column: secondary-column;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+@media (max-width: 760px) {
+  aside {
+    margin-top: 0;
+  }
+}
+
+.aside-ref {
+  vertical-align: super;
+  font-size: 1rem;
+  font-family: et-book-roman-old-style;
+  line-height: 1;
+  padding-left: 0.1em;
+}
+
+/* Block quotes */
+
+blockquote {
+  font-size: 1.4rem;
+}
+
+blockquote footer {
+  font-size: 1.1rem;
+  text-align: right;
+}
+
+/* Code and code blocks */
+
+pre {
+  margin: 0 0 -0.8rem 5%;
+  padding-bottom: 0.8rem;
+  overflow-x: auto;
+}
+
+section > pre {
+  grid-column: span-columns;
+}
+
+@media (max-width: 760px) {
+  section > pre:hover,
+  section > pre:focus {
+    margin: 0;
+    grid-column: window-width;
+    padding: 0.5rem;
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
+  }
+}
+
+aside > pre {
+  margin: 0.8rem 0;
+}
+
+code,
+pre > code {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 0.9rem;
+  line-height: 1.42;
+}
+
+pre > code {
+  display: block;
+}
+
+/* Tables */
+
+table {
+  font-family: "Trebuchet MS", "Gill Sans", "Gill Sans MT", sans-serif;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  vertical-align: bottom;
+  position: sticky;
+  line-height: 1.42;
+  top: 0;
+}
+
+th,
+td {
+  white-space: pre-line;
+  border-bottom: 1px solid var(--line-color);
+  padding-right: 1rem;
+}
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+/* Chapter Epigraphs */
+
+.epigraph {
+  margin: 5em 0;
+}
+
+.epigraph > blockquote {
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.epigraph > blockquote,
+.epigraph > blockquote > p {
+  font-style: italic;
+}
+
+.epigraph > blockquote > footer {
+  font-style: normal;
+}
+
+.epigraph > blockquote > footer > cite {
+  font-style: italic;
+}

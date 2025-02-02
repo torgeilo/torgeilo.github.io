@@ -1,60 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Old selenium/node-chrome, Google Chrome versions</title>
-    <link href="../basics.css" rel="stylesheet" type="text/css">
-    <style>
-      ul {
-        margin: 0;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        position: relative;
-      }
-      th {
-        text-align: left;
-        vertical-align: bottom;
-        position: sticky;
-        top: 0;
-        background: white;
-      }
-      th, td {
-        white-space: pre-line;
-        padding: 0.333em 1em 0.333em 0;
-        border-bottom: 1px solid #ccc;
-      }
-      th:last-child, td:last-child {
-        padding-right: 0;
-      }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google Chrome versions in Selenium node-chrome docker images</title>
+    <link
+      href="../theme/et-book/et-book.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link href="../theme/theme.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
-    <h1>Google Chrome versions in selenium/node-chrome docker images</h1>
-    <span class="meta">Updated 2023-06-10 @ <a href="https://torgeilo.github.io/">torgeilo.github.io</a></span>
+    <header>
+      <a href="https://torgeilo.github.io/">torgeilo.github.io</a>
+    </header>
 
-    <div class="section">
-      <p>To find a <a href="https://hub.docker.com/r/selenium/node-chrome"><code>selenium/node-chrome</code></a> docker image containing:</p>
-      <ul>
-        <li><strong>Google Chrome 84 or newer</strong>: <a href="https://hub.docker.com/r/selenium/node-chrome/tags">Go to the list of tags</a> and use the "Filter Tags" input field with the Chrome version number.</li>
-        <li><strong>Google Chrome 83 or older</strong>: See the table below.</li>
-      </ul>
-    </div>
+    <article>
+      <h1>Google Chrome versions in Selenium node-chrome docker images</h1>
+      <span>Updated <time datetime="2023-06-10">June 10, 2023</time></span>
 
-    <table class="mapdatatable section"></table>
+      <section>
+        <p>
+          To find a
+          <a href="https://hub.docker.com/r/selenium/node-chrome"
+            ><code>selenium/node-chrome</code></a
+          >
+          docker image for:
+        </p>
+        <ul>
+          <li>
+            <strong>Google Chrome 84 or newer</strong>:
+            <a href="https://hub.docker.com/r/selenium/node-chrome/tags">
+              Go to the list of node-chrome tags</a
+            >
+            and use the &ldquo;Filter Tags&rdquo; input field with the Chrome
+            version number.
+          </li>
+          <li>
+            <strong>Google Chrome 83 or older</strong>: See the table below.
+          </li>
+        </ul>
+      </section>
 
-    <p><a href="chrome-version-vs-selenium-node-chrome-tag-43-83.csv">Download the CSV file</a></p>
+      <section>
+        <h2>Chrome and node-chrome versions table</h2>
+        <table class="mapdatatable section"></table>
+        <p>
+          <a href="chrome-version-vs-selenium-node-chrome-tag-43-83.csv">
+            Download the CSV file.
+          </a>
+        </p>
+      </section>
 
-    <hr>
+      <section>
+        <h2>Example docker-compose.yml configuration</h2>
+        <p>
+          <em>
+            Note: The example might not be 100% correct or optimal, but it seems
+            to work fine for several of the v3 Selenium images.
+          </em>
+        </p>
+        <p>
+          The major version of the node docker image has to match the version of
+          the Selenium hub image. v3 Selenium servers fail to register with v4
+          Selenium hubs. The Selenium capabilities must match<span
+            class="aside-ref"
+            >1</span
+          >
+          as well, when connecting to the hub with a driver.
+        </p>
+        <aside>
+          <span class="aside-ref">1</span> Capabilities for
+          <code>3.8.1-bohrium</code>, based on the versions table, are:
+          <pre><code>"browserName":&nbsp;"Chrome"
+"version":&nbsp;"63"</code></pre>
+        </aside>
 
-    <h2>Example docker-compose.yml configuration</h2>
-    <p><em>Note: The example might not be 100% correct or optimal, but it seems to work fine for several of the v3 Selenium images.</em></p>
-    <p>Note the matching major version of the Selenium hub image. v3 Selenium servers fail to register with v4 Selenium hubs. The Selenium capabilities must match, too, when connecting to the hub with a driver (in this case "browserName": "Chrome" and "version":&nbsp;"63").</p>
-
-    <pre><code>
-version: "3.5"
+        <h3>docker-compose.yml</h3>
+        <pre><code>version: "3.5"
 
 services:
   selenium-hub:
@@ -74,52 +98,60 @@ services:
         hard: 65536
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium-hub
-      - HUB_PORT_4444_TCP_PORT=4444
-    </code></pre>
+      - HUB_PORT_4444_TCP_PORT=4444</code></pre>
+      </section>
 
-    <h2>How to find the Google Chrome version of a selenium/node-chrome image</h2>
-    <p>Run:</p>
-    <pre><code>
-docker run selenium/node-chrome:&lt;tag&gt; google-chrome --version
-    </code></pre>
-    <p>&hellip;replacing <code>&lt;tag&gt;</code> with the actual tag. For example:</p>
-    <pre><code>
-$ docker run --quiet --rm selenium/node-chrome:3.8.1-bohrium google-chrome --version
-Google Chrome 63.0.3239.84
-    </code></pre>
+      <section>
+        <h2>
+          How to find the Google Chrome version of a selenium/node-chrome image
+        </h2>
+        <p>Run:</p>
+        <pre><code>docker run selenium/node-chrome:&lt;tag&gt; google-chrome --version</code></pre>
+        <p>
+          where <code>&lt;tag&gt;</code> is replaced with the actual tag. For
+          example:
+        </p>
+        <pre><code>&gt; docker run --quiet --rm selenium/node-chrome:3.8.1-bohrium google-chrome --version
+Google Chrome 63.0.3239.84</code></pre>
+      </section>
+    </article>
 
     <script>
-      const mapDataTable = document.querySelector('.mapdatatable');
+      const mapDataTable = document.querySelector(".mapdatatable");
 
       async function loadMap() {
-        const response = await fetch("chrome-version-vs-selenium-node-chrome-tag-43-83.csv");
+        const response = await fetch(
+          "chrome-version-vs-selenium-node-chrome-tag-43-83.csv",
+        );
         if (!response.ok) {
-          throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+          throw new Error(
+            `Failed to fetch: ${response.status} ${response.statusText}`,
+          );
         }
 
         const data = await response.text();
         let previousVersion;
         let previousVersionCell;
 
-        data.split('\n').forEach((line, index) => {
-          const [version, tag] = line.split(',');
+        data.split("\n").forEach((line, index) => {
+          const [version, tag] = line.split(",");
           if (!version || !tag) {
             return;
           }
 
-          const row = document.createElement('tr');
+          const row = document.createElement("tr");
           let cell1, cell2;
 
           if (index === 0) {
-            const cell1 = document.createElement('th');
-            const cell2 = document.createElement('th');
+            const cell1 = document.createElement("th");
+            const cell2 = document.createElement("th");
             cell1.textContent = version;
             cell2.textContent = `Selenium server version,\n${tag}`;
             row.appendChild(cell1);
             row.appendChild(cell2);
           } else {
             if (version !== previousVersion) {
-              const cell1 = document.createElement('td');
+              const cell1 = document.createElement("td");
               cell1.textContent = version;
               cell1.rowSpan = 1;
               row.appendChild(cell1);
@@ -130,7 +162,7 @@ Google Chrome 63.0.3239.84
               previousVersionCell.rowSpan++;
             }
 
-            const cell2 = document.createElement('td');
+            const cell2 = document.createElement("td");
             cell2.textContent = tag;
             row.appendChild(cell2);
           }
@@ -139,10 +171,10 @@ Google Chrome 63.0.3239.84
         });
       }
       loadMap().catch((error) => {
-        const cell = document.createElement('td');
+        const cell = document.createElement("td");
         cell.textContent = `${error.name}: ${error.message}`;
 
-        const row = document.createElement('tr');
+        const row = document.createElement("tr");
         row.colspan = 2;
         row.appendChild(cell);
 

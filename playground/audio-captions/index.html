@@ -1,91 +1,111 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="../../basics.css" type="text/css" rel="stylesheet">
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="../../theme/et-book/et-book.css" type="text/css" rel="stylesheet" />
+<link href="../../theme/theme.css" type="text/css" rel="stylesheet" />
 <title>Audio captions example</title>
 <style>
-audio {
-  width: 100%;
-  margin-bottom: 1em;
-}
-.captions p {
-  cursor: pointer;
-  padding: 0.5em;
-  margin: 0;
-}
-.captions span {
-  font-weight: bold;
-  padding-right: 0.25em;
-}
-.captions p:hover {
-  background: #f6f6f6;
-}
-.captions p.current {
-  background: #ff0;
-}
+  .captions li {
+    list-style-type: none;
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    margin: 0.1rem 0;
+    border-radius: 0.4rem;
+  }
+  .captions span {
+    font-weight: bold;
+    padding-right: 0.2em;
+  }
+  .captions li:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  .captions li.current {
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  }
 </style>
 
-<base href="https://torgeilo.github.io/playground/audio-captions/">
+<base href="https://torgeilo.github.io/playground/audio-captions/" />
 
-<h1>Audio captions example</h1>
-<span class="meta">Updated 2017-04-01 @ <a href="https://torgeilo.github.io/">torgeilo.github.io</a></span>
+<header>
+  <a href="https://torgeilo.github.io/">torgeilo.github.io</a>
+</header>
 
-<section>
-  <p>&hellip;with highlighting. Using the HTML5 audio and track elements, and a <a href="data/the_hare_and_the_tortoise.vtt">WebVTT file with timed text</a>. No libraries. Browser support might vary.</p>
-  <p>Audio recording from <a href="http://librivox.org">LibriVox</a>. Captions from <a href="http://www.gutenberg.org">Project Gutenberg</a>.</p>
-</section>
+<article>
+  <h1>Audio captions example</h1>
+  <span>Updated <time datetime="2017-04-01">April 1, 2017</time></span>
 
-<section id="media">
-  <h2>The Hare and the Tortoise</h2>
+  <section>
+    <p>
+      With highlighting. Using the HTML5 <code>&lt;audio&gt;</code> and
+      <code>&lt;track&gt;</code> elements, and a
+      <a href="data/the_hare_and_the_tortoise.vtt">
+        WebVTT file with timed text</a
+      >. No libraries.
+    </p>
+    <p>
+      Audio recording from <a href="http://librivox.org">LibriVox</a>. Captions
+      from <a href="http://www.gutenberg.org">Project Gutenberg</a>.
+    </p>
+  </section>
 
-  <audio src="data/02_haretortoise_aesop_bt.mp3" controls crossorigin="*">
-   <track src="data/the_hare_and_the_tortoise.vtt" kind="captions" srclang="en" label="English" default>
-  </audio>
+  <section id="media">
+    <h2>The Hare and the Tortoise</h2>
 
-  <div class="captions"></div>
-</section>
+    <audio src="data/02_haretortoise_aesop_bt.mp3" controls crossorigin="*">
+      <track
+        src="data/the_hare_and_the_tortoise.vtt"
+        kind="captions"
+        srclang="en"
+        label="English"
+        default
+      />
+    </audio>
+
+    <ol class="captions"></ol>
+  </section>
+</article>
 
 <script>
-(function() {
-  var media = document.getElementById("media");
-  var audio = media.querySelector("audio");
-  var track = media.querySelector("track");
-  var captions = media.querySelector(".captions");
+  (function () {
+    var media = document.getElementById("media");
+    var audio = media.querySelector("audio");
+    var track = media.querySelector("track");
+    var captions = media.querySelector(".captions");
 
-  function formatTime(seconds) {
-    var m = Math.floor(seconds / 60);
-    var s = Math.round(seconds % 60);
-    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
-  }
+    function formatTime(seconds) {
+      var m = Math.floor(seconds / 60);
+      var s = Math.round(seconds % 60);
+      return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+    }
 
-  function renderCue(cue) {
-    var paragraph = document.createElement("p");
-    var indicator = document.createElement("span");
-    indicator.appendChild(document.createTextNode(formatTime(cue.startTime)));
-    paragraph.appendChild(indicator);
-    paragraph.appendChild(document.createTextNode(" " + cue.text));
-    captions.appendChild(paragraph);
-    return paragraph;
-  }
+    function renderCue(cue) {
+      var textEl = document.createElement("li");
+      var timeEl = document.createElement("span");
+      timeEl.textContent = formatTime(cue.startTime);
+      textEl.appendChild(timeEl);
+      textEl.appendChild(document.createTextNode(" " + cue.text));
+      captions.appendChild(textEl);
+      return textEl;
+    }
 
-  track.addEventListener("load", function() {
-    var textTrack = track.track;
+    track.addEventListener("load", function () {
+      var textTrack = track.track;
 
-    Array.prototype.forEach.call(textTrack.cues, function(cue) {
-      var cueEl = renderCue(cue);
-      cue.addEventListener("enter", function() {
+      Array.prototype.forEach.call(textTrack.cues, function (cue) {
+        var cueEl = renderCue(cue);
+        cue.addEventListener("enter", function () {
           cueEl.classList.add("current");
-      });
-      cue.addEventListener("exit", function() {
+        });
+        cue.addEventListener("exit", function () {
           cueEl.classList.remove("current");
-      });
-      cueEl.addEventListener("click", function() {
-        audio.currentTime = cue.startTime;
-        if (audio.paused) {
-          audio.play();
-        }
+        });
+        cueEl.addEventListener("click", function () {
+          audio.currentTime = cue.startTime;
+          if (audio.paused) {
+            audio.play();
+          }
+        });
       });
     });
-  });
-})();
+  })();
 </script>
