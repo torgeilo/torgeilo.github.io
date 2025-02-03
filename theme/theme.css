@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/* Based on https://edwardtufte.github.io/tufte-css/ */
+
 html {
   font-size: 93.75%;
   font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD",
